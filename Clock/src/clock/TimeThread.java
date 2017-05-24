@@ -5,24 +5,22 @@ import javafx.scene.canvas.*;
 public class TimeThread implements Runnable {
 	Thread timeThread;
 	Time time;	
-	GraphicsContext gc;	
+	GraphicsContext gc;
+	double zoom;
 	
-	TimeThread(GraphicsContext gc) {
+	TimeThread(double zoom, GraphicsContext gc) {		
+		this.zoom = zoom;
 		this.gc = gc;
 		timeThread = new Thread(this, "Clock");		
 		timeThread.start();		
 	}
 	
-	public void run() {
-		
-		time = new Time(0, 0, 210, 210, gc);
-		time.clockFace.paint();
-		
+	public void run() {		
 		try {
-			time = new Time(0, 0, 210, 210, gc);
+			time = new Time(zoom, gc);
 			
 			while(true) {
-				time.tickTack();
+				time.paint();
 				Thread.sleep(1000);
 			}
 		} catch(InterruptedException ie) {

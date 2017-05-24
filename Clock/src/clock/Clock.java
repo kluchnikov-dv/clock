@@ -12,6 +12,7 @@ import javafx.scene.canvas.*;	//холст
 
 
 public class Clock extends Application {
+	final double ZOOM_CLOCK = 300;
 	
 	Button exitButton = new Button("Выход");;			//кнопка для выхода	
 	GraphicsContext gc;									//графический контекст
@@ -22,17 +23,17 @@ public class Clock extends Application {
 	
 	public void start(Stage clockStage) {
 	    	
-    	clockStage.setTitle("Clock");							//задаем заголовок подмостка
-    	FlowPane rootNode = new FlowPane(Orientation.VERTICAL, 10, 10);				//создаем корневой узел
-    	rootNode.setAlignment(Pos.CENTER);					//выровнять все элементы сверху в центре  
-    	clockStage.setScene(new Scene(rootNode, 300, 300));  	//создаем сцену и устанавливаем сцену на подмосток
+    	clockStage.setTitle("Clock");										//задаем заголовок подмостка
+    	FlowPane rootNode = new FlowPane(Orientation.VERTICAL, 10, 10);		//создаем корневой узел
+    	rootNode.setAlignment(Pos.CENTER);									//выровнять все элементы сверху в центре  
+    	clockStage.setScene(new Scene(rootNode, ZOOM_CLOCK + 50, ZOOM_CLOCK + 50));  				//создаем сцену и устанавливаем сцену на подмосток
     	
-    	Canvas canvas = new Canvas(210, 210);
+    	Canvas canvas = new Canvas(ZOOM_CLOCK, ZOOM_CLOCK);
     	gc = canvas.getGraphicsContext2D();
-    	TimeThread timeThread = new TimeThread(gc);
+    	TimeThread timeThread = new TimeThread(ZOOM_CLOCK, gc);
     	
     	
-    	rootNode.getChildren().addAll(canvas, exitButton);		//ввести элементы на сцену
+    	rootNode.getChildren().addAll(canvas, exitButton);					//ввести элементы на сцену
     	clockStage.show();     												//Показываем подмосток и сцену   	
     	    	
     	
