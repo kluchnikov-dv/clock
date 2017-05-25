@@ -2,9 +2,7 @@ package clock;
 
 import javafx.scene.canvas.*;	//графический контекст
 import javafx.scene.paint.*;	//цвет
-import javafx.scene.shape.StrokeLineCap;
-
-import java.util.Date;
+import java.util.Date;			//текущая дата-время
 
 interface ColorClockLine {
 	Color COLOR_HOURE_LINE = Color.BLACK;
@@ -14,8 +12,8 @@ interface ColorClockLine {
 	public void paint();
 }
 
-//время
-class Time implements ColorClockLine {	
+//собранные часы
+class ClockMounted implements ColorClockLine {	
 	private ClockFace		clockFace; 		//циферблат
 	private	ClockLine 		houreLine;		//стрелка часов
 	private ClockLine   	minuteLine;		//стрелка минут
@@ -23,16 +21,16 @@ class Time implements ColorClockLine {
 	private GraphicsContext	gc;				//грфический контекст
 	
 	//создать часы
-	Time(double zoom, GraphicsContext gc) {		
+	ClockMounted(double zoom, GraphicsContext gc) {		
 		this.gc = gc;		
 		clockFace = new ClockFace(zoom, gc);
-		secondsLine = new ClockLine(zoom - 10, zoom, 1, COLOR_SECONDS_LINE, gc);
-		minuteLine = new ClockLine(zoom - 30, zoom, 3, COLOR_MINUTE_LINE, gc);
-		houreLine = new ClockLine(zoom - 60, zoom, 5, COLOR_HOURE_LINE, gc);
+		secondsLine = new ClockLine(zoom - (zoom * 0.05), zoom, 1, COLOR_SECONDS_LINE, gc);
+		minuteLine = new ClockLine(zoom - (zoom * 0.15), zoom, 3, COLOR_MINUTE_LINE, gc);
+		houreLine = new ClockLine(zoom - (zoom * 0.3), zoom, 5, COLOR_HOURE_LINE, gc);
 	}	
 	
 	
-	//нарисовать часы с текущем временем
+	//нарисовать часы с текущим временем
 	public void paint() {		
 		clockFace.paint();		
 		Date date = new Date();				//дата время													

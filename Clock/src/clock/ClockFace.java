@@ -6,8 +6,7 @@ import javafx.scene.shape.*;		//сектор-деление
 
 interface ColorClockFace {
 	Color COLOR_CLOCK_FACE_LINE = Color.BLACK;	//цвет линий
-	Color COLOR_CLOCK_FACE = Color.WHITE ;		//цвет заполнения		
-	
+	Color COLOR_CLOCK_FACE = Color.WHITE ;		//цвет заполнения			
 	public void paint();
 }
 

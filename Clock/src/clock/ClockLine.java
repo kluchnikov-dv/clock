@@ -4,7 +4,7 @@ import javafx.scene.canvas.*;	//графический контекст
 import javafx.scene.paint.*;	//цвет
 import javafx.scene.shape.*;	//сектор-стрелка
 
-//стрелка
+//стрелка часов
 class ClockLine {
 	private double	length;				//длина стрелки
 	private double	zoom;				//размер циферблата	

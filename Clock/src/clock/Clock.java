@@ -12,7 +12,7 @@ import javafx.scene.canvas.*;	//холст
 
 
 public class Clock extends Application {
-	final double ZOOM_CLOCK = 300;
+	final double ZOOM_CLOCK = 333;
 	
 	Button exitButton = new Button("Выход");;			//кнопка для выхода	
 	GraphicsContext gc;									//графический контекст
@@ -30,26 +30,28 @@ public class Clock extends Application {
     	
     	Canvas canvas = new Canvas(ZOOM_CLOCK, ZOOM_CLOCK);
     	gc = canvas.getGraphicsContext2D();
-    	TimeThread timeThread = new TimeThread(ZOOM_CLOCK, gc);
+    	ClockThread timeThread = new ClockThread(ZOOM_CLOCK, gc);
     	
     	
     	rootNode.getChildren().addAll(canvas, exitButton);					//ввести элементы на сцену
     	clockStage.show();     												//Показываем подмосток и сцену   	
     	    	
     	
+    	//обработчик нажатия кнопки выход
     	exitButton.setOnAction(new EventHandler<ActionEvent>() {	//зарегестрировать обработчик события для конкретной кнопки, при помощи setOnAction
     		public void handle(ActionEvent ae) {					//создать анонимный внутренний класс на основе интерфейса EventHandler
     			clockStage.close();									//реализовать единственный метод handle для обработки события
-    			try {
-    				timeThread.wait();
-    			} catch(InterruptedException ie) {
-    				
-    			}
+    			timeThread.stopThread = true;						//завершить поток с часами			
     		}
     	});
-    	    	  	
     	
-    	
+    	//обработчик закрытия окна
+    	clockStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+    		public void handle(WindowEvent we) {
+    			timeThread.stopThread = true;						//завершить поток с часами
+    		}
+    	});
+
 	}
 
 }
